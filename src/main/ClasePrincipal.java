@@ -29,7 +29,11 @@ public class ClasePrincipal {
 		Integer opcion;
 		do {
 			System.out.println("Bienvenido, antes de entrar al sistema, diganos es 1)Cliente.2)Admin.0)salir");
+//			Usuario user2 = new Cliente("juanito", "pedro","juan@gmail.com","pedros",250);
+//			sistema.registrarse(user2);
+//			System.out.println(user2.getPassword()+"34");
 			
+		
 			boolean flag = true;
 			opcion = 9;
 			do {
@@ -412,16 +416,24 @@ public class ClasePrincipal {
 
 	public static boolean sistemaCliente(Usuario cliente, Sistema sistema) {
 		Scanner teclado = new Scanner(System.in); 
-		Integer opcion;
+		Integer opcion = null;
 		do {
 			System.out.println("1.Mostrar Productos");
 			System.out.println("2.Mostrar Locales");
 			System.out.println("3.Comprar");
 			System.out.println("4.Pagar");
 			System.out.println("5.Ver mis compras");
-			System.out.println("6.Salir de la sesion");
-			opcion = teclado.nextInt();
-
+			System.out.println("6.Ver mi saldo");
+			System.out.println("7.Salir de la sesion");
+			
+			try {
+				opcion = teclado.nextInt();
+			}
+			catch(InputMismatchException e) 
+			{
+				System.out.println("Ingrese un numero");
+				teclado.nextLine();continue; 
+			}
 			switch (opcion) {
 			case 1:
 				sistema.mostrarProductos();
@@ -491,14 +503,17 @@ public class ClasePrincipal {
 				}
 				break;
 			case 6:
+				System.out.println(sistema.verSaldo((Cliente)cliente));
+				break;
+			case 7:
 				sistema.salirDelSistema();
-				opcion = 6;
+				opcion = 7;
 				break;
 			default:
 				System.out.println("Ingrese opcion valida");
 				break;
 			}
-		} while (opcion != 6);
+		} while (opcion != 7);
 		return false;
 	}
 }

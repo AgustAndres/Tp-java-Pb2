@@ -165,7 +165,6 @@ public class testeito {
 
 		perfumeria.registrarAdmin(jefe20);
 		perfumeria.registrarse(cliente10);
-		//perfumeria.IngresarAlSistema("c", "c");
 		perfumeria.salirDelSistema();
 		try {
 			perfumeria.IngresarAlSistema("admin", "admin");

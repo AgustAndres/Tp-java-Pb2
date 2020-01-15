@@ -132,7 +132,6 @@ public class Sistema {
 		return false;
 	}
 
-	// YA ESTA CREO
 	public Boolean borrarUsuario(String email) throws NoExisteExcepcion {
 
 		Usuario user = buscarUsuario(email);
@@ -250,6 +249,10 @@ public class Sistema {
 		}
 		throw new NoExisteExcepcion("No existe el producto");
 	}
+	public String verSaldo(Cliente cliente) {
+		String estado = "Saldo: $"+cliente.getSaldo()+" puntos: " + cliente.getPuntos();
+		return estado;
+	}
 
 	public void mostrarUsuarios() {
 		if (usuarioLogeado()) {
@@ -336,17 +339,16 @@ public class Sistema {
 	// Sistema
 	public boolean usuarioLogeado() {
 		if (usuarioLogeado == null) {
-			return false; // devuelve falso si no hay nadie
+			return false; 
 		}
-		return true; // true si hay un usuario logeado
+		return true;
 	}
 
 	public boolean IngresarAlSistema(String email, String password) throws NoExisteExcepcion {
 		if (!usuarioLogeado()) {
 			Usuario online = buscarUsuario(email);
 			String descrip = Cript.deCript(this.encriptPass, password);
-			if (online.getPassword().equals(password) && password.equals(descrip)) {
-
+			if ( password.equals(descrip)) {
 				this.usuarioLogeado = online;
 				System.out.println("Logeado");
 				return true;
@@ -378,8 +380,8 @@ public class Sistema {
 
 	}
 	public boolean salirDelSistema() {
-		if (usuarioLogeado()) {// si la persona esta en el sistema
-			usuarioLogeado = null;// lo saco
+		if (usuarioLogeado()) {
+			usuarioLogeado = null;
 			System.out.println("Salio");
 			return true;
 		}
@@ -405,6 +407,7 @@ public class Sistema {
 			}
 		}
 		this.encriptPass = Cript.Cript(user.getPassword());
+		user.setPassword(encriptPass);
 		this.usuarios.add(user);
 		return true;
 	}
